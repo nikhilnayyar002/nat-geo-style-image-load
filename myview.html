@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Testing MyView Image Display</title>
+
+<style>
+*{box-sizing: border-box;}
+body {margin:10px; padding:0;background: turquoise; font-family:arial;}
+.mycont {height:600px;width:800px; margin:auto;}
+</style>
+<link rel="stylesheet" href="myView.css">
+<script src="myView.js"></script>
+
+</head>
+
+<body>
+<div id="Load"></div>
+<div id="container" class="mycont shadow">
+</div>
+<div id="Error"></div>
+<pre>
+
+This is a image container that displays images with styles. Also note these things to be updated:
+
+Note:
+
+Please try to provide em support, also make atleast 3 breakable media queries below
+Also one must remove multipe image doms on media changes and make things simple on mobiles
+multiple function like video loader and user based image slider can be implemeted by wrapper
+functions. Also provide darkness effect filter 
+
+</pre>
+
+<script>
+//let nik=["nature1.jpg","9-9-18-Stars.jpg"];
+let q,names,nik;
+
+fetch('oscar.json')
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(myJson) {
+ 	nik = myJson;
+	names=new Array(myJson.length)
+ 	for(let i=0;i<nik.length;++i){
+		names[i]=new Array(2);
+		for(let j=0;j<2;++j) names[i][j]= i?(nik[i].replace('.jpg', '')):'';
+	}
+ 	nik=nik.map(x => '/resources/oscar/'+ x);
+ 	q=natGeoImg({parent:"#container", frames:8, array:nik, time:2000, timeK:20, collection:true, dullness:0, 		names:names});
+ 	q.start();
+  });
+
+</script>
+</body>
+</html>
